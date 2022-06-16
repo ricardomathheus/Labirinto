@@ -1,0 +1,28 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.mazeRow{
+    display: flex;
+}
+
+.mazeRow > *{
+    height: 1em;
+    width: 1em;
+}
+
+.wall{
+    transition: 0.5s;
+    background-color: var(--bg-color);
+}
+
+/* .way{
+} */
