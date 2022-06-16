@@ -72,3 +72,7 @@ htmlMaze.addEventListener('mousemove', event => {
     }
 })
 
+htmlMaze.addEventListener('mouseleave', () => {
+    playerCanWin = false
+    htmlMaze.style = '--bg-color: red;'
+})
