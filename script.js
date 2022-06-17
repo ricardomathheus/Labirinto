@@ -54,7 +54,7 @@ mazeRow.forEach(element => {
 const start = document.querySelector('#start')
 const final = document.querySelector('#final')
 
-let playerCanWin = true
+let playerCanWin = false
 htmlMaze.addEventListener('mousemove', event => {
     const elementClass = event.target.classList[0]
     console.log(elementClass)
