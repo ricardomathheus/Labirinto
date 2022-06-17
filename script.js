@@ -22,12 +22,11 @@ const map = [
 ]
 
 const mazeMap = map.map(element => element.split(''))
-console.log('MazeMap:', mazeMap)
 
 const mazeRow = mazeMap.map(elementArray => {
     let row = ''
     elementArray.forEach(element => {
-        if (element === 'W') {
+/*         if (element === 'W') {
             row += '<div class="wall"></div>'
         }else if(element === ' '){
             row += '<div class="way"></div>'
@@ -37,14 +36,22 @@ const mazeRow = mazeMap.map(elementArray => {
             row += '<div class="final" id="final">End</div>'
         }else{
             console.log('algo deu errado')
+        } */
+
+        const elementsList = {
+            W: '<div class="wall"></div>',
+            ' ': '<div class="way"></div>',
+            S: '<div class="start" id="start">Start</div>',
+            F: '<div class="final" id="final">End</div>'
+        }
+ 
+        if (elementsList[element]) {
+            row += elementsList[element]
         }
     })
 
-    console.log('oi',`<div class="mazeRow">${row}<div>`)
     return `<div class="mazeRow">${row}<div>`
 })
-
-console.log('mazeRow', mazeRow)
 
 mazeRow.forEach(element => {
     htmlMaze.innerHTML += element
@@ -57,8 +64,7 @@ const final = document.querySelector('#final')
 let playerCanWin = false
 htmlMaze.addEventListener('mousemove', event => {
     const elementClass = event.target.classList[0]
-    console.log(elementClass)
-    if (elementClass == 'start') {
+/*     if (elementClass == 'start') {
         playerCanWin = true
         htmlMaze.style = '--bg-color: green;'
         console.log('start')
@@ -69,7 +75,27 @@ htmlMaze.addEventListener('mousemove', event => {
         if (playerCanWin) {
             htmlMaze.innerHTML = 'You Win'
         }
+    } */
+
+    const elementsClassList = {
+        start: () => {playerCanWin = true},
+        wall: () => {playerCanWin = false},
+        final: () => {
+            if (playerCanWin) htmlMaze.innerHTML = 'You Win'
+        }
     }
+    if (elementsClassList[elementClass]) {
+        elementsClassList[elementClass]()
+    }
+    
+    if (playerCanWin) {
+        htmlMaze.style = '--bg-color: green;'
+    }else{
+        htmlMaze.style = '--bg-color: red;'
+    }
+
+    htmlMaze.style = 
+        playerCanWin ? '--bg-color: green' : '--bg-color: red'
 })
 
 htmlMaze.addEventListener('mouseleave', () => {
