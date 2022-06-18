@@ -1,8 +1,18 @@
 // labirinto
-const htmlMaze = document.querySelector('main')
+const htmlMaze = document.querySelector('#maze')
+
+// cores
+const colors = {
+    canWin: 'blue',
+    defeated: '#ff005c',
+    bg: '#7171ef',
+    text: 'white'
+}//{canWin:'green' , defeated: 'red'}
+document.querySelector('body').style.backgroundColor = colors.bg
+document.querySelector('body').style.color = colors.text
+htmlMaze.style = `--bg-color: ${colors.defeated};`
 
 // gerar labirinto
-
 const map = [
     "WWWWWWWWWWWWWWWWWWWWW",
     "W   W     W     W W W",
@@ -26,17 +36,17 @@ const mazeMap = map.map(element => element.split(''))
 const mazeRow = mazeMap.map(elementArray => {
     let row = ''
     elementArray.forEach(element => {
-/*         if (element === 'W') {
-            row += '<div class="wall"></div>'
-        }else if(element === ' '){
-            row += '<div class="way"></div>'
-        }else if(element === 'S'){
-            row += '<div class="start" id="start">Start</div>'
-        }else if(element === 'F'){
-            row += '<div class="final" id="final">End</div>'
-        }else{
-            console.log('algo deu errado')
-        } */
+        /*         if (element === 'W') {
+                    row += '<div class="wall"></div>'
+                }else if(element === ' '){
+                    row += '<div class="way"></div>'
+                }else if(element === 'S'){
+                    row += '<div class="start" id="start">Start</div>'
+                }else if(element === 'F'){
+                    row += '<div class="final" id="final">End</div>'
+                }else{
+                    console.log('algo deu errado')
+                } */
 
         const elementsList = {
             W: '<div class="wall"></div>',
@@ -44,7 +54,7 @@ const mazeRow = mazeMap.map(elementArray => {
             S: '<div class="start" id="start">Start</div>',
             F: '<div class="final" id="final">End</div>'
         }
- 
+
         if (elementsList[element]) {
             row += elementsList[element]
         }
@@ -64,22 +74,22 @@ const final = document.querySelector('#final')
 let playerCanWin = false
 htmlMaze.addEventListener('mousemove', event => {
     const elementClass = event.target.classList[0]
-/*     if (elementClass == 'start') {
-        playerCanWin = true
-        htmlMaze.style = '--bg-color: green;'
-        console.log('start')
-    }else if (elementClass === 'wall') {
-        playerCanWin = false
-        htmlMaze.style = '--bg-color: red;'
-    }else if (elementClass === 'final') {
-        if (playerCanWin) {
-            htmlMaze.innerHTML = 'You Win'
-        }
-    } */
+    /*     if (elementClass == 'start') {
+            playerCanWin = true
+            htmlMaze.style = '--bg-color: green;'
+            console.log('start')
+        }else if (elementClass === 'wall') {
+            playerCanWin = false
+            htmlMaze.style = '--bg-color: red;'
+        }else if (elementClass === 'final') {
+            if (playerCanWin) {
+                htmlMaze.innerHTML = 'You Win'
+            }
+        } */
 
     const elementsClassList = {
-        start: () => {playerCanWin = true},
-        wall: () => {playerCanWin = false},
+        start: () => { playerCanWin = true },
+        wall: () => { playerCanWin = false },
         final: () => {
             if (playerCanWin) htmlMaze.innerHTML = 'You Win'
         }
@@ -87,18 +97,18 @@ htmlMaze.addEventListener('mousemove', event => {
     if (elementsClassList[elementClass]) {
         elementsClassList[elementClass]()
     }
-    
-    if (playerCanWin) {
-        htmlMaze.style = '--bg-color: green;'
-    }else{
-        htmlMaze.style = '--bg-color: red;'
-    }
 
-    htmlMaze.style = 
-        playerCanWin ? '--bg-color: green' : '--bg-color: red'
+    /*     if (playerCanWin) {
+            htmlMaze.style = '--bg-color: green;'
+        }else{
+            htmlMaze.style = '--bg-color: red;'
+        } */
+
+    htmlMaze.style =
+        playerCanWin ? `--bg-color: ${colors.canWin}` : `--bg-color: ${colors.defeated}`
 })
 
 htmlMaze.addEventListener('mouseleave', () => {
     playerCanWin = false
-    htmlMaze.style = '--bg-color: red;'
+    htmlMaze.style = `--bg-color: ${colors.defeated};`
 })

@@ -4,13 +4,14 @@
 }
 
 body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
     height: 100vh;
 }
 
 main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
     cursor: default;
 }
 
@@ -30,3 +31,8 @@ main{
 
 /* .way{
 } */
+
+footer {
+    position: absolute;
+    bottom: 0px;
+}
