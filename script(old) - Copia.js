@@ -13,38 +13,23 @@ document.querySelector('body').style.color = colors.text
 htmlMaze.style = `--bg-color: ${colors.defeated};`
 
 // gerar labirinto
-
-function changeMap() {
-    const urlParams = new URLSearchParams(window.location.search)
-    const mazeParam = urlParams.get('maze')
-    
-    if (mazeParam) {
-        console.log(mazeParam.replace(/%20/g, ' ').split(','))
-        return mazeParam.replace(/%20/g, ' ').split(',')
-    }
-
-    const mazeMapAlt = [
-        "WWWWWWWWWWWWWWWWWWWWW",
-        "W   W     W     W W W",
-        "W W W WWW WWWWW W W W",
-        "W W W   W     W W   W",
-        "W WWWWWWW W WWW W W W",
-        "W         W     W W W",
-        "W WWW WWWWW WWWWW W W",
-        "W W   W   W W     W W",
-        "W WWWWW W W W WWW W F",
-        "S     W W W W W W WWW",
-        "WWWWW W W W W W W W W",
-        "W     W W W   W W W W",
-        "W WWWWWWW WWWWW W W W",
-        "W       W       W   W",
-        "WWWWWWWWWWWWWWWWWWWWW",
-    ]
-
-    return mazeMapAlt
-}
-
-const map = changeMap()
+const map = [
+    "WWWWWWWWWWWWWWWWWWWWW",
+    "W   W     W     W W W",
+    "W W W WWW WWWWW W W W",
+    "W W W   W     W W   W",
+    "W WWWWWWW W WWW W W W",
+    "W         W     W W W",
+    "W WWW WWWWW WWWWW W W",
+    "W W   W   W W     W W",
+    "W WWWWW W W W WWW W F",
+    "S     W W W W W W WWW",
+    "WWWWW W W W W W W W W",
+    "W     W W W   W W W W",
+    "W WWWWWWW WWWWW W W W",
+    "W       W       W   W",
+    "WWWWWWWWWWWWWWWWWWWWW",
+]
 
 const mazeMap = map.map(element => element.split(''))
 
