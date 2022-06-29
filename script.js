@@ -131,4 +131,4 @@ function character() {
     console.log(KeyboardEvent.keycode)
 }
 
-character()
+mouse()
