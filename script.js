@@ -86,7 +86,8 @@ mazeRow.forEach(element => {
 const start = document.querySelector('#start')
 const final = document.querySelector('#final')
 
-let playerCanWin = false
+function mouse() {
+    let playerCanWin = false
 htmlMaze.addEventListener('mousemove', event => {
     const elementClass = event.target.classList[0]
     /*     if (elementClass == 'start') {
@@ -113,12 +114,6 @@ htmlMaze.addEventListener('mousemove', event => {
         elementsClassList[elementClass]()
     }
 
-    /*     if (playerCanWin) {
-            htmlMaze.style = '--bg-color: green;'
-        }else{
-            htmlMaze.style = '--bg-color: red;'
-        } */
-
     htmlMaze.style =
         playerCanWin ? `--bg-color: ${colors.canWin}` : `--bg-color: ${colors.defeated}`
 })
@@ -127,3 +122,13 @@ htmlMaze.addEventListener('mouseleave', () => {
     playerCanWin = false
     htmlMaze.style = `--bg-color: ${colors.defeated};`
 })
+
+}
+
+//character
+
+function character() {
+    console.log(KeyboardEvent.keycode)
+}
+
+character()
