@@ -128,7 +128,74 @@ htmlMaze.addEventListener('mouseleave', () => {
 //character
 
 function character() {
-    console.log(KeyboardEvent.keycode)
+
+
+
+    function NewCharacter() {
+        const characterParent = document.querySelector('#player-conteiner')
+        let positionY = 0
+        let positionX = 0
+
+        const character = {
+            positionY: 0,
+            positionX: 0,
+
+            setPositionY: function(value) {
+                this.positionY = value
+                this.render
+            },
+            setPositionX: function(value) {
+                this.positionX = value
+                this.render
+            },
+
+            id: 'player',
+
+            html:         
+            `
+            <div 
+                id='player'
+                style=
+                    'width: 8px;
+                    height: 8px;
+                    border-radius: 50%;
+                    background-color: blue;
+                    position: relative;
+                    bottom: ${positionY}px;
+                    right: ${positionX}px'
+            >
+            </div>
+            `,
+
+            render: () => characterParent.innerHTML += character.html,
+        }  
+
+        return character
+    }
+
+    const player = NewCharacter()
+    player.render()
+    player.setPositionY(5)
+
+    addEventListener('keyup', Keyboard => {
+        const key = Keyboard.key
+
+        console.log(key)
+
+        const keyfunctions = {
+            ArrowUp: () => {
+                player.setPositionY(10)
+            },
+            ArrowRight: '',
+            ArrowDown: '',
+            ArrowLeft: '',
+        }
+
+        if (keyfunctions[key]) {
+            keyfunctions[key]()
+        }
+
+    })
 }
 
 character()
