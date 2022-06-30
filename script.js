@@ -133,41 +133,40 @@ function character() {
 
     function NewCharacter() {
         const characterParent = document.querySelector('#player-conteiner')
-        let positionY = 0
-        let positionX = 0
 
         const character = {
             positionY: 0,
             positionX: 0,
 
-            setPositionY: function(value) {
+            upDatePositionY: function(value) {
                 this.positionY = value
-                this.render
+                this.render()
             },
-            setPositionX: function(value) {
+            upDatePositionX: function(value) {
                 this.positionX = value
-                this.render
+                this.render()
             },
 
             id: 'player',
 
-            html:         
-            `
-            <div 
-                id='player'
-                style=
-                    'width: 8px;
-                    height: 8px;
-                    border-radius: 50%;
-                    background-color: blue;
-                    position: relative;
-                    bottom: ${positionY}px;
-                    right: ${positionX}px'
-            >
-            </div>
-            `,
+            html: function() {
+                return `
+                <div 
+                    id='player'
+                    style=
+                        'width: 8px;
+                        height: 8px;
+                        border-radius: 50%;
+                        background-color: blue;
+                        position: relative;
+                        bottom: ${this.positionY}px;
+                        right: ${this.positionX}px'
+                >
+                </div>
+                `
+            },    
 
-            render: () => characterParent.innerHTML += character.html,
+            render: function() {characterParent.innerHTML = this.html()}
         }  
 
         return character
@@ -175,20 +174,28 @@ function character() {
 
     const player = NewCharacter()
     player.render()
-    player.setPositionY(5)
 
-    addEventListener('keyup', Keyboard => {
+    addEventListener('keydown', Keyboard => {
         const key = Keyboard.key
 
         console.log(key)
 
         const keyfunctions = {
             ArrowUp: () => {
-                player.setPositionY(10)
+                player.upDatePositionY(player.positionY + 5)
             },
-            ArrowRight: '',
-            ArrowDown: '',
-            ArrowLeft: '',
+
+            ArrowRight: () => {
+                player.upDatePositionX(player.positionX - 5)
+            },
+
+            ArrowDown: () => {
+                player.upDatePositionY(player.positionY - 5)
+            },
+
+            ArrowLeft: () => {
+                player.upDatePositionX(player.positionX + 5)
+            },
         }
 
         if (keyfunctions[key]) {
@@ -198,4 +205,4 @@ function character() {
     })
 }
 
-mouse()
+character()
