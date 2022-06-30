@@ -129,8 +129,6 @@ htmlMaze.addEventListener('mouseleave', () => {
 
 function character() {
 
-
-
     function NewCharacter() {
         const characterParent = document.querySelector('#player-conteiner')
 
@@ -175,10 +173,10 @@ function character() {
     const player = NewCharacter()
     player.render()
 
+    //movimentação//
+
     addEventListener('keydown', Keyboard => {
         const key = Keyboard.key
-
-        console.log(key)
 
         const keyfunctions = {
             ArrowUp: () => {
@@ -206,3 +204,4 @@ function character() {
 }
 
 character()
+mouse()
