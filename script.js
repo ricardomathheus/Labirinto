@@ -160,15 +160,88 @@ function character() {
 
         const characterParent = document.querySelector('#player-conteiner')
 
+        const blockedBlocks = 'a'
+        /*
+        function estaoSobrepostos(elementoA, elementoB) {
+            const a = elementoA.getBoundingClientRect()
+            const b = elementoB.getBoundingClientRect()
+
+            const horizontal = a.left + a.width >= b.left && b.left + b.width >= a.left
+            const vertical = a.top + a.height >= b.top && b.top + b.height >= a.top
+            return horizontal && vertical
+        }
+        */
+
+        function a() {
+            const n = document.querySelectorAll('.wall')[1].getBoundingClientRect()
+            const m = document.querySelector('#player').getBoundingClientRect()
+            return {wall: n, player: m}
+        }
+
+        
+        function  getWallsPosition() {
+            const walls = [...document.querySelectorAll('.wall')]
+            const wallPositions = {}
+
+            walls.forEach(element => {
+                const wall = element.getBoundingClientRect()
+                const wallPositionY = (wall.y + wall.width - 12)
+                const wallPositionX = (wall.x + wall.width - 12)
+                
+                wallPositions[`${wallPositionY} ${wallPositionX}`] = 'wall'
+            })
+
+            return wallPositions
+        }
+
+/*         const getWallsPosition = {
+            y: () => {
+                const walls = [...document.querySelectorAll('.wall')]
+                const wallPositions = {}
+    
+                walls.forEach(element => {
+                    const wall = element.getBoundingClientRect()
+                    const wallPosition = (wall.y + wall.width - 12)
+                    
+                    wallPositions[wallPosition] = element
+                })
+    
+                return wallPositions
+            },
+
+            x: () => {
+                const walls = [...document.querySelectorAll('.wall')]
+                const wallPositions = {}
+    
+                walls.forEach(element => {
+                    const wall = element.getBoundingClientRect()
+                    const wallPosition = (wall.x + wall.width - 12)
+                    
+                    wallPositions[wallPosition] = element
+                })
+    
+                return wallPositions
+            },
+        } */
+
+        
+        setInterval(() => {
+/*             console.log('y', a().wall.y + a().wall.width - 12, a().player.y)
+            console.log('x', a().wall.x + a().wall.width - 12, a().player.x) */
+            console.log(getWallsPosition()[`${a().player.y} ${a().player.x}`])
+        }, 500);
+
+        //area de testes fim
+
         const character = {
             positionY: 0,
             positionX: 0,
 
-            upDatePositionY: function (value) {
+            moveY: function (value) {
                 this.positionY = value
                 this.render()
             },
-            upDatePositionX: function (value) {
+            moveX: function (value) {
                 this.positionX = value
                 this.render()
             },
@@ -208,19 +281,19 @@ function character() {
 
         const keyfunctions = {
             ArrowUp: () => {
-                player.upDatePositionY(player.positionY + 5)
+                player.moveY(player.positionY + 16)
             },
 
             ArrowRight: () => {
-                player.upDatePositionX(player.positionX - 5)
+                player.moveX(player.positionX - 16)
             },
 
             ArrowDown: () => {
-                player.upDatePositionY(player.positionY - 5)
+                player.moveY(player.positionY - 16)
             },
 
             ArrowLeft: () => {
-                player.upDatePositionX(player.positionX + 5)
+                player.moveX(player.positionX + 16)
             },
         }
 
