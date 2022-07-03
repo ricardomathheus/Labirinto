@@ -133,7 +133,6 @@ function character() {
 
     function NewCharacter() {
 
-
         function playerSpawnLocal() {
             const playerConteiner = `
                 <div id="player-conteiner"
@@ -157,7 +156,6 @@ function character() {
         playerSpawnLocal()
 
 
-
         const characterParent = document.querySelector('#player-conteiner')
 
         
@@ -170,24 +168,29 @@ function character() {
 
         
         function  getWallsPosition() {
-            const walls = [...document.querySelectorAll('.wall')]
+            const walls = document.querySelectorAll('.wall')
             const wallPositions = {}
 
             walls.forEach(element => {
                 const wall = element.getBoundingClientRect()
                 const wallPositionY = (wall.y + wall.width - 12)
                 const wallPositionX = (wall.x + wall.width - 12)
-                
-                wallPositions[`${wallPositionY} ${wallPositionX}`] = 'wall'
+                const id = `${wallPositionY} ${wallPositionX}`
+                element.id = id.replace(' ', '--').replace('.', '-')
+                wallPositions[id] = 'wall'
             })
 
             return wallPositions
         }
 
-    
-        setInterval(() => {
-            console.log(getWallsPosition()[`${a().player.y} ${a().player.x}`])
-        }, 500);
+
+        const wallsPosition = getWallsPosition()
+            
+
+        
+/*         setInterval(() => {
+            console.log(wallsPosition[`${a().player.y} ${a().player.x}`])
+        }, 500); */
 
         //testar colisão fim
 
@@ -195,8 +198,13 @@ function character() {
             positionY: 0,
             positionX: 0,
 
-            moveY: function (value) {
-                this.positionY = value
+            moveY: function (distance) {
+                const player = document.querySelector('#player')
+                const DOMPositionY = player.getBoundingClientRect().y
+                const DOMPositionX = player.getBoundingClientRect().x
+                const targetBlockInWalls = wallsPosition[`${DOMPositionY - distance} ${DOMPositionX}`]
+                
+                this.positionY = targetBlockInWalls ? this.positionY : this.positionY + distance
                 this.render()
             },
             moveX: function (value) {
@@ -239,15 +247,15 @@ function character() {
 
         const keyfunctions = {
             ArrowUp: () => {
-                player.moveY(player.positionY + 16)
+                player.moveY(16)
             },
 
             ArrowRight: () => {
-                player.moveX(player.positionX - 16)
+                player.moveX(player.positionX -16)
             },
 
             ArrowDown: () => {
-                player.moveY(player.positionY - 16)
+                player.moveY(-16)
             },
 
             ArrowLeft: () => {
