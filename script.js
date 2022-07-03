@@ -207,8 +207,13 @@ function character() {
                 this.positionY = targetBlockInWalls ? this.positionY : this.positionY + distance
                 this.render()
             },
-            moveX: function (value) {
-                this.positionX = value
+            moveX: function (distance) {
+                const player = document.querySelector('#player')
+                const DOMPositionY = player.getBoundingClientRect().y
+                const DOMPositionX = player.getBoundingClientRect().x
+                const targetBlockInWalls = wallsPosition[`${DOMPositionY} ${DOMPositionX - distance}`]
+                
+                this.positionX = targetBlockInWalls ? this.positionX : this.positionX + distance
                 this.render()
             },
 
@@ -251,7 +256,7 @@ function character() {
             },
 
             ArrowRight: () => {
-                player.moveX(player.positionX -16)
+                player.moveX(-16)
             },
 
             ArrowDown: () => {
@@ -259,7 +264,7 @@ function character() {
             },
 
             ArrowLeft: () => {
-                player.moveX(player.positionX + 16)
+                player.moveX(16)
             },
         }
 
