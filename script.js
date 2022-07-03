@@ -17,7 +17,7 @@ htmlMaze.style = `--bg-color: ${colors.defeated};`
 function changeMap() {
     const urlParams = new URLSearchParams(window.location.search)
     const mazeParam = urlParams.get('maze')
-    
+
     if (mazeParam) {
         console.log(mazeParam.replace(/%20/g, ' ').split(','))
         return mazeParam.replace(/%20/g, ' ').split(',')
@@ -66,7 +66,9 @@ const mazeRow = mazeMap.map(elementArray => {
         const elementsList = {
             W: '<div class="wall"></div>',
             ' ': '<div class="way"></div>',
+
             S: '<div class="start" id="start">Start</div>',
+
             F: '<div class="final" id="final">End</div>'
         }
 
@@ -88,40 +90,40 @@ const final = document.querySelector('#final')
 
 function mouse() {
     let playerCanWin = false
-htmlMaze.addEventListener('mousemove', event => {
-    const elementClass = event.target.classList[0]
-    /*     if (elementClass == 'start') {
-            playerCanWin = true
-            htmlMaze.style = '--bg-color: green;'
-            console.log('start')
-        }else if (elementClass === 'wall') {
-            playerCanWin = false
-            htmlMaze.style = '--bg-color: red;'
-        }else if (elementClass === 'final') {
-            if (playerCanWin) {
-                htmlMaze.innerHTML = 'You Win'
+    htmlMaze.addEventListener('mousemove', event => {
+        const elementClass = event.target.classList[0]
+        /*     if (elementClass == 'start') {
+                playerCanWin = true
+                htmlMaze.style = '--bg-color: green;'
+                console.log('start')
+            }else if (elementClass === 'wall') {
+                playerCanWin = false
+                htmlMaze.style = '--bg-color: red;'
+            }else if (elementClass === 'final') {
+                if (playerCanWin) {
+                    htmlMaze.innerHTML = 'You Win'
+                }
+            } */
+
+        const elementsClassList = {
+            start: () => { playerCanWin = true },
+            wall: () => { playerCanWin = false },
+            final: () => {
+                if (playerCanWin) htmlMaze.innerHTML = 'You Win'
             }
-        } */
-
-    const elementsClassList = {
-        start: () => { playerCanWin = true },
-        wall: () => { playerCanWin = false },
-        final: () => {
-            if (playerCanWin) htmlMaze.innerHTML = 'You Win'
         }
-    }
-    if (elementsClassList[elementClass]) {
-        elementsClassList[elementClass]()
-    }
+        if (elementsClassList[elementClass]) {
+            elementsClassList[elementClass]()
+        }
 
-    htmlMaze.style =
-        playerCanWin ? `--bg-color: ${colors.canWin}` : `--bg-color: ${colors.defeated}`
-})
+        htmlMaze.style =
+            playerCanWin ? `--bg-color: ${colors.canWin}` : `--bg-color: ${colors.defeated}`
+    })
 
-htmlMaze.addEventListener('mouseleave', () => {
-    playerCanWin = false
-    htmlMaze.style = `--bg-color: ${colors.defeated};`
-})
+    htmlMaze.addEventListener('mouseleave', () => {
+        playerCanWin = false
+        htmlMaze.style = `--bg-color: ${colors.defeated};`
+    })
 
 }
 
@@ -130,24 +132,50 @@ htmlMaze.addEventListener('mouseleave', () => {
 function character() {
 
     function NewCharacter() {
+
+
+        function playerSpawnLocal() {
+            const playerConteiner = `
+                <div id="player-conteiner"
+                    style="
+                    display: flex;
+                    position: absolute;
+                    top: 0px;
+                    justify-content: center;
+                    align-items: center;
+                    height: 1rem;
+                    width: 1rem;
+                    "
+                >
+                </div>
+            `
+            const start = document.querySelector('#start')
+            start.style.position = 'relative'
+            start.innerHTML += playerConteiner
+        }
+
+        playerSpawnLocal()
+
+
+
         const characterParent = document.querySelector('#player-conteiner')
 
         const character = {
             positionY: 0,
             positionX: 0,
 
-            upDatePositionY: function(value) {
+            upDatePositionY: function (value) {
                 this.positionY = value
                 this.render()
             },
-            upDatePositionX: function(value) {
+            upDatePositionX: function (value) {
                 this.positionX = value
                 this.render()
             },
 
             id: 'player',
 
-            html: function() {
+            html: function () {
                 return `
                 <div 
                     id='player'
@@ -162,10 +190,10 @@ function character() {
                 >
                 </div>
                 `
-            },    
+            },
 
-            render: function() {characterParent.innerHTML = this.html()}
-        }  
+            render: function () { characterParent.innerHTML = this.html() }
+        }
 
         return character
     }
